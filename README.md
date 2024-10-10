@@ -1,7 +1,7 @@
 # Development of a model for detecting mammals using photos from UAVs
 
 ## Description
-Creating ML-model of identifying mammals using a UAVs. 
+UAVs by VMAS'ы is a project providing a ML-model capable to identify mammals on images and video by using a UAVs. 
 
 ## We use:
 - PyTorch framework  - for machine learning and deep learning
