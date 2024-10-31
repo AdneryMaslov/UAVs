@@ -1,4 +1,4 @@
-# Development of a model for detecting mammals using photos from UAV
+# Development of a model for detecting mammals using photos from UAVs
 
 ## Description
 UAVs by VMAS'ы is a project providing a ML-model capable to identify mammals on images and video by using a UAVs. 
