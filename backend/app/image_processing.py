@@ -3,7 +3,7 @@ import cv2
 import uuid
 from pathlib import Path
 
-model = YOLO('best.pt')
+model = YOLO('UAVs_ml.pt')
 
 def process_image(image_path: Path) -> str:
     image = cv2.imread(str(image_path))
@@ -27,7 +27,8 @@ def process_image(image_path: Path) -> str:
     if not has_detections:
         return None
 
-    unique_name = f'{uuid.uuid4()}.jpg'
+    file_extension = image_path.suffix
+    unique_name = f"{uuid.uuid4()}{file_extension}"
     result_file_path = Path("processed") / unique_name
     cv2.imwrite(str(result_file_path), image)
 
