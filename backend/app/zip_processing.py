@@ -1,22 +1,24 @@
 import zipfile
+from zipfile import ZipFile
 from pathlib import Path
 from image_processing import process_image
 
-async def process_zip(zip_file) -> str:
-    zip_path = Path("uploads") / zip_file.filename
-    with open(zip_path, "wb") as f:
-        f.write(await zip_file.read())
+async def process_zip(file):
+    zip_path = Path("uploads") / file.filename
+    with open(zip_path, "wb") as buffer:
+        buffer.write(await file.read())
 
-    output_zip_path = Path("processed") / f"processed_{zip_file.filename}"
-    with zipfile.ZipFile(output_zip_path, 'w') as output_zip:
-        with zipfile.ZipFile(zip_path, 'r') as input_zip:
-            for image_name in input_zip.namelist():
-                if image_name.endswith(('.png', '.jpg', '.jpeg')):
-                    with input_zip.open(image_name) as image_file:
-                        image_path = Path("uploads") / image_name
-                        with open(image_path, "wb") as img_file:
-                            img_file.write(image_file.read())
-                        processed_image_path = process_image(image_path)
-                        output_zip.write(processed_image_path, Path(processed_image_path).name)
+    output_zip_path = Path("processed") / f"processed_{file.filename}"
+    with ZipFile(output_zip_path, "w") as output_zip:
+        with ZipFile(zip_path, "r") as input_zip:
+            for image_path in input_zip.namelist():
+                input_zip.extract(image_path, "uploads")
+                processed_image_path = process_image(Path("uploads") / image_path)
 
-    return str(output_zip_path)
+                # Проверка, что processed_image_path не является None и файл существует
+                if processed_image_path is not None and Path(processed_image_path).exists():
+                    output_zip.write(processed_image_path, Path(processed_image_path).name)
+                else:
+                    print(f"Processing failed for {image_path}, skipping.")
+
+    return output_zip_path if output_zip_path.exists() else None

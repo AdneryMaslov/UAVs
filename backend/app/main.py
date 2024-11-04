@@ -1,9 +1,10 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from zip_processing import process_zip
 from image_processing import process_image
 from pathlib import Path
+import os
 
 app = FastAPI()
 app.add_middleware(
@@ -22,16 +23,25 @@ PROCESSED_DIR.mkdir(exist_ok=True)
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
+    # Обработка zip-файлов
     if file.filename.endswith('.zip'):
         result_zip_path = await process_zip(file)
-        return FileResponse(result_zip_path)
+        if result_zip_path and os.path.exists(result_zip_path):
+            return FileResponse(result_zip_path)
+        else:
+            raise HTTPException(status_code=200, detail="На изображении в архиве ничего не найдено")
     else:
+        # Обработка изображений
         file_path = UPLOAD_DIR / file.filename
         with open(file_path, "wb") as f:
             f.write(await file.read())
 
         processed_image_path = process_image(file_path)
-        return FileResponse(processed_image_path)
+
+        if processed_image_path and os.path.exists(processed_image_path):
+            return FileResponse(processed_image_path)
+        else:
+            raise HTTPException(status_code=200, detail="На изображении ничего не найдено")
 
 
 @app.get("/get_image/{image_name}")
