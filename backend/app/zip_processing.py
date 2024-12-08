@@ -1,4 +1,3 @@
-import zipfile
 from zipfile import ZipFile
 from pathlib import Path
 from image_processing import process_image
