@@ -14,7 +14,7 @@ input.addEventListener('change', async function() {
 
   async function fetchData() {
     try {
-      const response = await fetch('https://dockerr.containers.cloud.ru/whatsimplant', {
+      const response = await fetch('http://62.60.247.132:8000/upload', {
         method: 'POST',
         body: formData
       });
@@ -45,57 +45,22 @@ input.addEventListener('change', async function() {
     res = await fetchData();
   }
 
-  let path = res.image_path;
-  let implant = res.results[0].name;
-  let count = res.results.length;
+  // let path = res.json();
+  path = res.filename
 
-  if (implant === 'ITI') {
-    results.innerHTML = `
-    <div class="claster-wrapper">
-        Ваш <br>
-        результат
-    </div>
-    <div class="results">
-        <div class="result">
-            <img src="${'https://dockerr.containers.cloud.ru/result/' + path}" alt="" srcset="">
-        </div> 
-        <div class="description">
-            <p>Вид: <span>ITI Straumann</span></p>
-            <p>Количество: <span>${count}</span></p>
-            <p>Описание: <span>Имплантационная система Straumann разработана для простоты и свободы выбора: одна система с одним набором, который можно использовать по всем показаниям, и уникальный ассортимент различных материалов и поверхностей, включая такие передовые технологии, как Roxolid и SLActive</span></p>
-        </div>
-    </div>`;
-  } else if (implant === 'Bego') {
-    results.innerHTML = `
-    <div class="claster-wrapper">
-        Ваш <br>
-        результат
-    </div>
-    <div class="results">
-        <div class="result">
-            <img src="${'https://dockerr.containers.cloud.ru/result/' + path}" alt="" srcset="">
-        </div> 
-        <div class="description">
-            <p>Вид: <span>Bego Semados</span></p>
-            <p>Количество: <span>${count}</span></p>
-            <p>Описание: <span>Bego Semados (Бего Семадос) – это европейская компания с богатой историей и более чем тридцатилетним опытом в производстве зубных имплантатов. Среди ценностей компании высокое качество, инновации и научно обоснованные решения для стоматологической практики.</span></p>
-        </div>
-    </div>`;
-  } else if (implant === 'Bicon') {
-    results.innerHTML = `
-    <div class="claster-wrapper">
-        Ваш <br>
-        результат
-    </div>
-    <div class="results">
-        <div class="result">
-            <img src="${'https://dockerr.containers.cloud.ru/result/' + path}" alt="" srcset="">
-        </div> 
-        <div class="description">
-            <p>Вид: <span>Bicon</span></p>
-            <p>Количество: <span>${count}</span></p>
-            <p>Описание: <span>Клинически доказанный результат с 1985 года. Благодаря уникальному дизайну и революционным технологиям, система дентальных имплантатов Bicon не просто выдержала испытание временем, но продолжает занимать лидирующую позицию в имплантологии.</span></p>
-        </div>
-    </div>`;
-  }
+  results.innerHTML = `
+  <div class="claster-wrapper">
+      Ваш <br>
+      результат
+  </div>
+  <div class="results">
+      <div class="result">
+          <img src="${'http://62.60.247.132:8000/get_image/' + path}" alt="" srcset="">
+      </div>
+      <div class="description">
+        <p>Вид: <span>Тюлень</span></p>
+        <p>Количество: <span>4</span></p>
+      </div>
+  </div>`;
+  
 });

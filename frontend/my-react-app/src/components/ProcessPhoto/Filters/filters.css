@@ -1,0 +1,180 @@
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.params-container {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-family: 'OpenSans Light';
+    font-size: 30px;
+    background-color: black;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-top: 20px;
+    box-shadow: 0px 20px 20px 10px rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.params {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.param {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input-for {
+    font-family: 'OpenSans Bold';
+    color: rgba(255, 255, 255, 0.8);
+}
+
+input[type="range"] {
+    -webkit-appearance: none; 
+    appearance: none;
+    margin: 10px 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #ff000085; 
+    border-radius: 0px;
+    outline: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    height: 20px;
+    width: 20px;
+    background: rgb(215, 95, 3); 
+    border-radius: 50%; 
+    cursor: pointer; 
+    margin-top: -6px; 
+}
+
+.input-data {
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+}
+
+.param output {
+    background: #ff4500;
+    padding: 5px 5px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.animal-select-item {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 7px;
+}
+
+.animal-select-item label{
+    font-family: 'OpenSans Light';
+}
+
+.add-photo {
+    width: 80%;
+    height: 150px;
+    border-radius: 20px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-file {
+	display: inline-block;
+}
+
+.input-file span {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	color: rgb(255 255 255);
+	text-align: center;
+	border-radius: 4px;
+	background-color: rgb(215, 95, 3);
+	line-height: 22px;
+	height: 80px;
+    width: 170px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+    border-radius: 40px;
+    font-family: 'OpenSans Bold';
+    font-size: 20px;
+}
+
+.input-file input[type=file] {
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+ 
+.input-file input[type=file]:focus + span {
+	box-shadow: 0 0 0 0.2rem rgba(176, 128, 7, 0.622);
+}
+ 
+.input-file:hover span {
+	background-color: rgb(236, 177, 29);
+}
+.input-file:active span {
+	background-color: rgb(21, 219, 58);
+}
+ 
+.input-file input[type=file]:disabled + span {
+	background-color: #eee;
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 80%;
+}
+
+.instructions p{
+   margin: 1px;
+   font-size: 14px;
+   color: rgb(255, 255, 255);
+   font-family: 'OpenSans Light';
+   text-align: center;
+}

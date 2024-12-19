@@ -1,0 +1,61 @@
+.result-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.photo-result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.photo-result-container img {
+    border-radius: 20px;
+}
+
+.text-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.text-results-container h2 {
+    font-size: 40px;
+    font-family: 'OpenSans Light';
+    margin: 0;
+    padding: 0;
+}
+
+.text-result-item {
+    margin-top: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+.text-result-name {
+    font-family: 'OpenSans Extra Bold';
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+}
+
+.text-result-name label {
+    font-family: 'OpenSans Light';
+    font-size: 22px;
+}
