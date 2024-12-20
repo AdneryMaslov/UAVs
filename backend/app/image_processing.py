@@ -3,36 +3,47 @@ import cv2
 import uuid
 from ultralytics import YOLO
 
-
-def process_image(image_path: Path) -> Path:
-    model = YOLO("best.pt")
+def process_image(image_path: Path, min_confidence, min_size, clases) -> Path:
+    model = YOLO("UAVs/backend/app/best.pt")
     results = model(image_path)
 
-    # Проверка детекций
     if not results[0].boxes:
         print("No detections found.")
         return None
 
-    # Загрузка изображения для рисования результатов
     image = cv2.imread(str(image_path))
+
+    results_to_send = {
+        'img': '',
+        'results': []
+    }
+
     for box in results[0].boxes:
         x1, y1, x2, y2 = map(int, box.xyxy[0])
         confidence = box.conf[0]
         class_id = int(box.cls[0])
+        class_name = model.names[class_id]
         label = f"{model.names[class_id]} {confidence:.2f}"
+        width = x2 - x1 
+        height = y2 - y1 
+        size = (width ** 2 + height ** 2) ** 0.5
 
-        # Рисуем рамки и метки на изображении
+        skip = confidence < min_confidence or size < min_size or class_name not in clases
+        if skip:
+            continue
+
+        results_to_send['results'].append({'class_name:': class_name, 'size': size})
+
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-    # Генерация уникального имени для файла и сохранение
     processed_dir = Path("processed")
     processed_dir.mkdir(exist_ok=True)
     processed_image_path = processed_dir / f"processed_{uuid.uuid4().hex}.jpg"
 
-    # Сохраняем изображение
+    results_to_send['img'] = processed_image_path
+
     cv2.imwrite(str(processed_image_path), image)
     print(f"Saved processed image to: {processed_image_path}")
 
-    return processed_image_path
-
+    return results_to_send

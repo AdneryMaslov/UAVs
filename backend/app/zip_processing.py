@@ -14,7 +14,6 @@ async def process_zip(file):
                 input_zip.extract(image_path, "uploads")
                 processed_image_path = process_image(Path("uploads") / image_path)
 
-                # Проверка, что processed_image_path не является None и файл существует
                 if processed_image_path is not None and Path(processed_image_path).exists():
                     output_zip.write(processed_image_path, Path(processed_image_path).name)
                 else:
