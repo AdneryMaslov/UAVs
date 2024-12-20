@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Body
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from zip_processing import process_zip
@@ -22,7 +22,9 @@ PROCESSED_DIR.mkdir(exist_ok=True)
 
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(data = Body()):
+    file = data['file']
+
     # Обработка zip-файлов
     if file.filename.endswith('.zip'):
         result_zip_path = await process_zip(file)
