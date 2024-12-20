@@ -3,7 +3,7 @@ import cv2
 import uuid
 from ultralytics import YOLO
 
-def process_image(image_path: Path, min_confidence, min_size, clases) -> Path:
+def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> Path:
     model = YOLO("UAVs/backend/app/best.pt")
     results = model(image_path)
 
@@ -18,7 +18,13 @@ def process_image(image_path: Path, min_confidence, min_size, clases) -> Path:
         'results': []
     }
 
+    objects_count = 0
+
     for box in results[0].boxes:
+        if objects_count > max_objects:
+            break
+        objects_count += 1
+        
         x1, y1, x2, y2 = map(int, box.xyxy[0])
         confidence = box.conf[0]
         class_id = int(box.cls[0])
