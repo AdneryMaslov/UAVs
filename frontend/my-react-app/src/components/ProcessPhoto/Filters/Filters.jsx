@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './filters.css'
+import PropTypes from 'prop-types';
 
-export default function Filters() {
+export default function Filters({ setPhoto }) {
     const [maxObjects, setMaxObjects] = useState(1);
     const [minСonfidence, setMinСonfidence] = useState(0.01);
     const [minSize, setMinSize] = useState(1);
@@ -45,7 +46,7 @@ export default function Filters() {
 
         async function fetchData() {
             try {
-                const response = await fetch('http://62.60.247.132:8000/upload', {
+                const response = await fetch('http://localhost:8000/upload', {
                     method: 'POST',
                     body: formData
                 });
@@ -70,10 +71,14 @@ export default function Filters() {
             res = await fetchData();
             i ++
         }
-        console.log(res)
+
+        console.log(res.filename)
+
+        if (res !== null) {
+            setPhoto(res.filename.toString())
+        }
     }    
 
-    
     return (
     <>
         <div className="filters-container">
@@ -117,7 +122,7 @@ export default function Filters() {
                                 <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="sheep" id="sheep"/>
                             </div>
                             <div className="animal-select-item">
-                                <label htmlFor="seacat">Моржи</label>
+                                <label htmlFor="seacat">Тюлени</label>
                                 <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="seacat" id="seacat"/>
                             </div>
                             <div className="animal-select-item">
@@ -145,3 +150,7 @@ export default function Filters() {
     </>
     )
 }
+
+Filters.propTypes = {
+    setPhoto: PropTypes.func.isRequired,
+};

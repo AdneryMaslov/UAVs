@@ -1,18 +1,19 @@
 import './result.css'
 
-export default function Result() {
+export default function Result(url) {
+    console.log(url)
     return(
     <>
         <div className="result-container">
             <div className="results">
                 <div className="photo-result-container">
-                    <img src="/src/components/ProcessPhoto/Result/MA263063-142_png.rf.a94fe65c14fa0bdc80018fd01582aa95.jpg" alt=""/>
+                    <img src={'http://localhost:8000/get_image/' + url.url} alt=""/>
                 </div>
                 <div className="text-results-container">
                     <h2>Результаты обработки</h2>
                     <div className="text-result-item">
                         <div className="text-result-name">
-                            Вид: <label>Моржи</label>
+                            Вид: <label>Тюлени</label>
                         </div>
                     </div>
                     <div className="text-result-item">
@@ -22,7 +23,7 @@ export default function Result() {
                     </div>
                     <div className="text-result-item">
                         <div className="text-result-name">
-                            Дополнительная информация: <label>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quisquam placeat veritatis ea illo quidem sunt aliquid unde beatae, iure maiores, voluptatum tenetur voluptatem architecto blanditiis itaque repellat, quaerat aperiam?</label>
+                            Дополнительная информация: <label>Тюлени — это морские млекопитающие, которые обитают в холодных водах и известны своей игривостью и социальной природой. Они прекрасно ныряют и охотятся на рыбу, полагаясь на свои чувствительные усы.</label>
                         </div>
                     </div>
                 </div>
