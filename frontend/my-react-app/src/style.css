@@ -20,7 +20,7 @@
 
 * {
     font-family: 'OpenSans';
-    color: white;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -32,8 +32,13 @@ body {
     align-items: center;
     justify-content: start;
     width: 100%;
-    background-color: rgb(20, 20, 20);
+    min-height: 100vh;
+    background-color: #fff;
     margin-bottom: 50px;
+    background: url('../public/russia-my-you-are-russia.jpg');
+    background-size: cover; /* Растягиваем изображение, чтобы оно покрывало весь экран */
+    background-position: center; /* Центрируем изображение на экране */
+    background-repeat: no-repeat;
 }
 
 #root {

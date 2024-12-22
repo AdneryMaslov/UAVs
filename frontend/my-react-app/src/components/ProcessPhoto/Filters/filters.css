@@ -13,13 +13,13 @@
     justify-content: space-around;
     font-family: 'OpenSans Light';
     font-size: 30px;
-    background-color: black;
+    background-color: #fff9e9;
     border-radius: 30px;
     margin-bottom: 20px;
     padding: 20px;
     padding-top: 20px;
-    box-shadow: 0px 20px 20px 10px rgba(255, 255, 255, 0.05);
-    color: white;
+    box-shadow: 0px 20px 20px 10px rgba(0, 0, 0, 0.1);
+    /* color: white; */
 }
 
 .params {
@@ -41,7 +41,6 @@
 
 .input-for {
     font-family: 'OpenSans Bold';
-    color: rgba(255, 255, 255, 0.8);
 }
 
 input[type="range"] {
@@ -52,7 +51,7 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-runnable-track {
     height: 8px;
-    background: #ff000085; 
+    background: #ccd5ae; 
     border-radius: 0px;
     outline: 0;
 }
@@ -61,7 +60,7 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; 
     height: 20px;
     width: 20px;
-    background: rgb(215, 95, 3); 
+    background: #d68f48; 
     border-radius: 50%; 
     cursor: pointer; 
     margin-top: -6px; 
@@ -77,7 +76,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .param output {
-    background: #ff4500;
+    background: #d68f48;
     padding: 5px 5px;
     border-radius: 3px;
     color: #fff;
@@ -125,7 +124,7 @@ input[type="range"]::-webkit-slider-thumb {
 	color: rgb(255 255 255);
 	text-align: center;
 	border-radius: 4px;
-	background-color: rgb(215, 95, 3);
+	background-color: #d68f48;
 	line-height: 22px;
 	height: 80px;
     width: 170px;
@@ -173,8 +172,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .instructions p{
    margin: 1px;
-   font-size: 14px;
-   color: rgb(255, 255, 255);
+   font-size: 19px;
    font-family: 'OpenSans Light';
    text-align: center;
 }

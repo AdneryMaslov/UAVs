@@ -12,10 +12,12 @@
     font-family: 'OpenSans Extra Bold';
     font-weight: 500;
     margin: 0;
+    color: #fff;
 }
 
 .nav-item {
     font-family: 'OpenSans Light';
     padding-right: 20px;
+    color: #fff;
 }
 

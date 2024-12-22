@@ -1,55 +1,59 @@
+import { useState } from 'react'
 import './result.css'
 
-export default function Result(url) {
-    console.log(url)
+export default function Result(params) {
+    const [showResult, setShowResult] = useState('none')
+    const [photoInformation, setPhotoInformation] = useState('')
+    const class_list = {
+        'seal': 'Тюлени'
+    }
+
+    const showModal = (item) => {
+        setShowResult('show')
+        setPhotoInformation(item.img)
+    }
+
     return(
     <>
         <div className="table">
             <table className="results-table">
                 <thead>
                     <tr>
-                        <th>Столбец 1</th>
-                        <th>Столбец 2</th>
-                        <th>Столбец 3</th>
-                        <th>Столбец 4</th>
-                        <th>Столбец 5</th>
+                        <th>Дата обработки</th>
+                        <th>Животные на снимке</th>
+                        <th>Количество объектов</th>
+                        <th>Размер животных</th>
+                        <th>Уверенность</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Данные 1.1</td>
-                        <td>Данные 1.2</td>
-                        <td>Данные 1.3</td>
-                        <td>Данные 1.4</td>
-                        <td>Данные 1.5</td>
-                    </tr>
+                    {params.params.results.map((item, index) => {
+                        if (item == null) {
+                            return null
+                        }
+                        const currentDate = new Date();
+                        const year = currentDate.getFullYear(); // Получаем год
+                        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Получаем месяц (0-11) и добавляем 1
+                        const day = currentDate.getDate().toString().padStart(2, '0'); // Получаем число
+                        const formattedDate = `${year}-${month}-${day}`;
+
+                        return (
+                        <tr onClick={() => showModal(item)} key={index}>
+                            <th>{formattedDate}</th>
+                            <th>{class_list[item.results[0]["class_name"]]}</th>
+                            <th>{item.results.length}</th>
+                            <th>{item.results[0].size}</th>
+                            <th>{item.results[0].confidence}</th>
+                        </tr>)
+                    })}
                 </tbody>
             </table>
         </div>
 
-
-        <div className="result-container">
+        <div onClick={() => setShowResult('none')} className={"result-container" + " " + showResult}>
             <div className="results">
                 <div className="photo-result-container">
-                    <img src={'http://localhost:8000/get_image/' + url.url} alt=""/>
-                </div>
-                <div className="text-results-container">
-                    <h2>Результаты обработки</h2>
-                    <div className="text-result-item">
-                        <div className="text-result-name">
-                            Вид: <label>Тюлени</label>
-                        </div>
-                    </div>
-                    <div className="text-result-item">
-                        <div className="text-result-name">
-                            Количество: <label>3</label>
-                        </div>
-                    </div>
-                    <div className="text-result-item">
-                        <div className="text-result-name">
-                            Дополнительная информация: <label>Тюлени — это морские млекопитающие, которые обитают в холодных водах и известны своей игривостью и социальной природой. Они прекрасно ныряют и охотятся на рыбу, полагаясь на свои чувствительные усы.</label>
-                        </div>
-                    </div>
+                    <img src={'http://localhost:8000/get_image/' + photoInformation} alt=""/>
                 </div>
             </div>
         </div>

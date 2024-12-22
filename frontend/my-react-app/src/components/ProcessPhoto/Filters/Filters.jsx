@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './filters.css'
 import PropTypes from 'prop-types';
 
-export default function Filters({ setPhoto }) {
+export default function Filters({ setParams }) {
     const [maxObjects, setMaxObjects] = useState(1);
     const [minСonfidence, setMinСonfidence] = useState(0.01);
     const [minSize, setMinSize] = useState(1);
@@ -38,6 +38,8 @@ export default function Filters({ setPhoto }) {
     }
 
     const sendData = async (e) => {
+        setParams({'results': 'load'})
+
         const input = e.target
         const file = input.files[0]; 
         const formData = new FormData(); 
@@ -80,13 +82,12 @@ export default function Filters({ setPhoto }) {
         let i = 0
         while (res === null && i < 10) {
             res = await fetchData();
+            setParams({"results": 0})
             i ++
         }
 
-        console.log(res)
-
         if (res !== null) {
-            setPhoto(res.filename.toString())
+            setParams(res)
         }
     }    
 
@@ -111,10 +112,10 @@ export default function Filters({ setPhoto }) {
                         </div>
                     </div>
                     <div className="param">
-                        <div className="input-for">Минимальный размер объекта, cм</div>
+                        <div className="input-for">Минимальный размер объекта в пикселях</div>
                         <div className="input-data">
                             <input type="range" value={minSize} min="0" max="300" onInput={(e) => setMinSize(e.target.value)}/>
-                            <output id="rangevalue">{minSize}</output>
+                            <output id="rangevalue">{minSize} px</output>
                         </div>
                     </div>
                     <div className="param">
@@ -153,7 +154,7 @@ export default function Filters({ setPhoto }) {
                         <span>Выберите файл</span>
                     </label>                    
                     <div className="instructions">
-                        <p>Загрузите снимок (.jpeg), серию снимков/видео в формате (.zip) или видео (.mp4)</p>
+                        <p>Загрузите снимок (.jpeg, .png, .jpg), серию снимков/видео в формате (.zip) или видео (.mp4)</p>
                     </div>
                 </div>
             </div>
@@ -163,5 +164,5 @@ export default function Filters({ setPhoto }) {
 }
 
 Filters.propTypes = {
-    setPhoto: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
 };

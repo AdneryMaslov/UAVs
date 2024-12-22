@@ -4,21 +4,22 @@ import './ProcessPhoto.css'
 import { useState } from 'react'
 
 export default function ProcessPhoto() {
-    const [photoUrl, setPhotoUrl] = useState(1)
+    const [params, setParams] = useState({"results": 0})
 
-    const renderResponse = (url) => {
-        if (url == 1) {
+    const renderResponse = (params) => {
+        if (params.results == 0) {
             return ""
+        } else if (params.results == 'load') {
+            return "Подождите, идет загрузка..."
         } else {
-            return <Result url = {photoUrl}/>
+            return <Result params = {params}/>
         }
     }
 
     return(
     <>
-        <Filters setPhoto = {setPhotoUrl} />
-        <Result url = {photoUrl}/>
-        {renderResponse(photoUrl)}
+        <Filters setParams = {setParams} />
+        {renderResponse(params)}
     </>
     )
 }

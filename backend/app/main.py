@@ -29,20 +29,23 @@ async def upload_file(file: UploadFile = File(...), minConfidence: float = Form(
     clases = parse_clases(animals_dict)
 
     if file.filename.endswith('.zip'):
+
         results = await process_zip(file, minConfidence, minSize, clases, maxObjects)
         if results:
             return {"results": results}
         else:
             raise HTTPException(status_code=200, detail="Nothing found")
+        
     else:
+        
         file_path = UPLOAD_DIR / file.filename
         with open(file_path, "wb") as f:
             f.write(await file.read())
 
         processed_image_path = process_image(file_path, minConfidence, minSize, clases, maxObjects)
 
-        if processed_image_path and os.path.exists(processed_image_path['img']):
-            return {"results": processed_image_path}
+        if processed_image_path:
+            return {"results": [processed_image_path]}
         else:
             raise HTTPException(status_code=200, detail="Nothing found")
 

@@ -3,7 +3,7 @@ import cv2
 import uuid
 from ultralytics import YOLO
 
-def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> Path:
+def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> dict:
     model = YOLO("best.pt")
     results = model(image_path)
 
@@ -38,7 +38,7 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
         if skip:
             continue
 
-        results_to_send['results'].append({'class_name:': class_name, 'size': size, 'confidence': confidence})
+        results_to_send['results'].append({'class_name': class_name, 'size': f'{size:.2f}', 'confidence': f'{confidence:.2f}'})
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
