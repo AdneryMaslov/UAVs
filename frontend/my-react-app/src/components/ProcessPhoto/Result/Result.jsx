@@ -4,6 +4,30 @@ export default function Result(url) {
     console.log(url)
     return(
     <>
+        <div className="table">
+            <table className="results-table">
+                <thead>
+                    <tr>
+                        <th>Столбец 1</th>
+                        <th>Столбец 2</th>
+                        <th>Столбец 3</th>
+                        <th>Столбец 4</th>
+                        <th>Столбец 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Данные 1.1</td>
+                        <td>Данные 1.2</td>
+                        <td>Данные 1.3</td>
+                        <td>Данные 1.4</td>
+                        <td>Данные 1.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
         <div className="result-container">
             <div className="results">
                 <div className="photo-result-container">

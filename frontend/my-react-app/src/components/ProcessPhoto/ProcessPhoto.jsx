@@ -17,6 +17,7 @@ export default function ProcessPhoto() {
     return(
     <>
         <Filters setPhoto = {setPhotoUrl} />
+        <Result url = {photoUrl}/>
         {renderResponse(photoUrl)}
     </>
     )

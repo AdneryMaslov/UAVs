@@ -4,7 +4,7 @@ import uuid
 from ultralytics import YOLO
 
 def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> Path:
-    model = YOLO("UAVs/backend/app/best.pt")
+    model = YOLO("best.pt")
     results = model(image_path)
 
     if not results[0].boxes:
@@ -34,20 +34,20 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
         height = y2 - y1 
         size = (width ** 2 + height ** 2) ** 0.5
 
-        skip = confidence < min_confidence or size < min_size or class_name not in clases
+        skip = confidence < min_confidence or size < min_size 
         if skip:
             continue
 
-        results_to_send['results'].append({'class_name:': class_name, 'size': size})
-
+        results_to_send['results'].append({'class_name:': class_name, 'size': size, 'confidence': confidence})
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     processed_dir = Path("processed")
     processed_dir.mkdir(exist_ok=True)
-    processed_image_path = processed_dir / f"processed_{uuid.uuid4().hex}.jpg"
+    image_name = f"processed_{uuid.uuid4().hex}.jpg"
+    processed_image_path = processed_dir / image_name
 
-    results_to_send['img'] = processed_image_path
+    results_to_send['img'] = image_name
 
     cv2.imwrite(str(processed_image_path), image)
     print(f"Saved processed image to: {processed_image_path}")

@@ -43,6 +43,17 @@ export default function Filters({ setPhoto }) {
         const formData = new FormData(); 
   
         formData.append('file', file);
+        formData.append('minConfidence', minСonfidence + 0.0)
+        formData.append('minSize', minSize)
+        formData.append('maxObjects', maxObjects)
+        formData.append('animals', JSON.stringify({
+            'baran': baran,
+            'pig': pig ,
+            'horse': horse,
+            'sheep': sheep,
+            'seacat': seacat,
+            'cow': cow
+        }))
 
         async function fetchData() {
             try {
@@ -72,7 +83,7 @@ export default function Filters({ setPhoto }) {
             i ++
         }
 
-        console.log(res.filename)
+        console.log(res)
 
         if (res !== null) {
             setPhoto(res.filename.toString())
