@@ -23,9 +23,8 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 PROCESSED_DIR.mkdir(exist_ok=True)
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...), minConfidence: float = Form(...), minSize: int = Form(...), maxObjects: int = Form(...)): #animals: str = Form(...)):
-    animals = '{"sheep": true, "cattle": true, "seal": false, "camelus": true, "kiang": true, "zebra": true, "horse": true}'
-
+async def upload_file(file: UploadFile = File(...), minConfidence: float = Form(...), minSize: int = Form(...), maxObjects: int = Form(...), animals: str = Form(...)):
+   
     animals_dict = json.loads(animals)
     print(animals_dict)
 

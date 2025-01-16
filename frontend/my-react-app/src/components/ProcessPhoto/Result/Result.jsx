@@ -55,7 +55,7 @@ export default function Result(params) {
         <div onClick={() => setShowResult('none')} className={"result-container" + " " + showResult}>
             <div className="results">
                 <div className="photo-result-container">
-                    <img src={'http://0.0.0.0:1000/get_image/' + photoInformation} alt=""/>
+                    <img src={'http://178.20.208.159:8001/get_image/' + photoInformation} alt=""/>
                 </div>
             </div>
         </div>
