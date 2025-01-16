@@ -35,7 +35,7 @@ body {
     min-height: 100vh;
     background-color: #fff;
     margin-bottom: 50px;
-    background: url('../public/russia-my-you-are-russia.jpg');
+    background: url('/russia-my-you-are-russia.jpg');
     background-size: cover; /* Растягиваем изображение, чтобы оно покрывало весь экран */
     background-position: center; /* Центрируем изображение на экране */
     background-repeat: no-repeat;

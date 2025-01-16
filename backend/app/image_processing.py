@@ -34,7 +34,7 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
         height = y2 - y1 
         size = (width ** 2 + height ** 2) ** 0.5
 
-        skip = confidence < min_confidence or size < min_size 
+        skip = confidence < min_confidence or size < min_size or class_name not in clases
         if skip:
             continue
 
@@ -53,3 +53,4 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
     print(f"Saved processed image to: {processed_image_path}")
 
     return results_to_send
+

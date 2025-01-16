@@ -6,35 +6,27 @@ export default function Filters({ setParams }) {
     const [maxObjects, setMaxObjects] = useState(1);
     const [minСonfidence, setMinСonfidence] = useState(0.01);
     const [minSize, setMinSize] = useState(1);
-    const [baran, setBaran] = useState(false)
-    const [pig, setPig] = useState(false)
-    const [horse, setHorse] = useState(false)
-    const [sheep, setSheep] = useState(false)
-    const [seacat, setSeacat] = useState(false)
-    const [cow, setCow] = useState(false)
+    const [animals, setAnimals] = useState(
+        {
+            sheep: false,
+            cattle: false,
+            seal: false,
+            camelus: false,
+            kiang: false,
+            zebra: false,
+            horse: false
+        }
+    )
 
     const processCheckbox = (e) => {
-        const el_id = e.target.id
-        switch (el_id) {
-            case 'baran':
-                setBaran(!baran)
-                break
-            case 'pig':
-                setPig(!pig)
-                break
-            case 'horse':
-                setHorse(!horse)
-                break
-            case 'sheep':
-                setSheep(!sheep)
-                break
-            case 'seacat':
-                setSeacat(!seacat)
-                break
-            case 'cow':
-                setCow(!cow)
-                break
-        }  
+        const animalId = e.target.id; 
+    
+        if (animalId in animals) {
+            setAnimals((prevAnimals) => ({
+                ...prevAnimals, 
+                [animalId]: !prevAnimals[animalId] 
+            }));
+        }
     }
 
     const sendData = async (e) => {
@@ -48,14 +40,9 @@ export default function Filters({ setParams }) {
         formData.append('minConfidence', minСonfidence + 0.0)
         formData.append('minSize', minSize)
         formData.append('maxObjects', maxObjects)
-        formData.append('animals', JSON.stringify({
-            'baran': baran,
-            'pig': pig ,
-            'horse': horse,
-            'sheep': sheep,
-            'seacat': seacat,
-            'cow': cow
-        }))
+        formData.append('animals', JSON.stringify(animals))
+
+        
 
         async function fetchData() {
             try {
@@ -122,28 +109,32 @@ export default function Filters({ setParams }) {
                         <div className="input-for">Виды животных</div>
                         <div className="animals-select">
                             <div className="animal-select-item">
-                                <label htmlFor="baran">Бараны</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="baran" id="baran" />
-                            </div>
-                            <div className="animal-select-item">
-                                <label htmlFor="horse">Лошади</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="horse" id="horse"/>
-                            </div>
-                            <div className="animal-select-item">
                                 <label htmlFor="baran">Овцы</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="sheep" id="sheep"/>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="sheep" id="sheep" />
                             </div>
                             <div className="animal-select-item">
-                                <label htmlFor="seacat">Тюлени</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="seacat" id="seacat"/>
+                                <label htmlFor="horse">Коровы</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="cattle" id="cattle"/>
                             </div>
                             <div className="animal-select-item">
-                                <label htmlFor="cow">Коровы</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="cow" id="cow"/>
+                                <label htmlFor="baran">Тюлень</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="seal" id="seal"/>
                             </div>
                             <div className="animal-select-item">
-                                <label htmlFor="pig">Свиньи</label>
-                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="pig" id="pig"/>
+                                <label htmlFor="seacat">Верблюды</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="camelus" id="camelus"/>
+                            </div>
+                            <div className="animal-select-item">
+                                <label htmlFor="cow">Кианг</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="kiang" id="kiang"/>
+                            </div>
+                            <div className="animal-select-item">
+                                <label htmlFor="pig">Зебра</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="zebra" id="zebra"/>
+                            </div>
+                            <div className="animal-select-item">
+                                <label htmlFor="pig">Лошади</label>
+                                <input onInput={(e) => (processCheckbox(e))} type="checkbox" name="horse" id="horse"/>
                             </div>
                         </div>
                     </div>
@@ -154,7 +145,7 @@ export default function Filters({ setParams }) {
                         <span>Выберите файл</span>
                     </label>                    
                     <div className="instructions">
-                        <p>Загрузите снимок (.jpeg, .png, .jpg), серию снимков/видео в формате (.zip) или видео (.mp4)</p>
+                        <p>Загрузите снимок (.jpeg, .png, .jpg) или серию снимков в формате (.zip)</p>
                     </div>
                 </div>
             </div>
