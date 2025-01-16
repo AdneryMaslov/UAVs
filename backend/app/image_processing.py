@@ -4,7 +4,7 @@ import uuid
 from ultralytics import YOLO
 
 def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> dict:
-    model = YOLO("best.pt")
+    model = YOLO("backend/app/best.pt")
     results = model(image_path)
 
     if not results[0].boxes:
@@ -32,10 +32,13 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
         width = x2 - x1 
         height = y2 - y1 
         size = (width ** 2 + height ** 2) ** 0.5
+        print(class_name)
 
         skip = confidence < min_confidence or size < min_size or class_name not in clases
         if skip:
             continue
+        print(class_name)
+        print(1)
 
         results_to_send['results'].append({'class_name': class_name, 'size': f'{size:.2f}', 'confidence': f'{confidence:.2f}'})
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
@@ -51,7 +54,7 @@ def process_image(image_path: Path, min_confidence, min_size, clases, max_object
     if objects_count > 0:
         results_to_send['img'] = image_name
     else: 
-        results_to_send['img'] = 0
+        return None
 
     cv2.imwrite(str(processed_image_path), image)
 

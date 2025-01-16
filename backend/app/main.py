@@ -4,13 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from zip_processing import process_zip
 from image_processing import process_image
 from pathlib import Path
+import uvicorn
 import json
 import os
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], 
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],  
@@ -22,7 +23,9 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 PROCESSED_DIR.mkdir(exist_ok=True)
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...), minConfidence: float = Form(...), minSize: int = Form(...), maxObjects: int = Form(...), animals: str = Form(...)):
+async def upload_file(file: UploadFile = File(...), minConfidence: float = Form(...), minSize: int = Form(...), maxObjects: int = Form(...)): #animals: str = Form(...)):
+    animals = '{"sheep": true, "cattle": true, "seal": false, "camelus": true, "kiang": true, "zebra": true, "horse": true}'
+
     animals_dict = json.loads(animals)
     print(animals_dict)
 
@@ -55,8 +58,10 @@ async def get_image(image_name: str):
 
 def parse_clases(clases_dict):
     clases = []
-    print(clases_dict)
     for class_name in clases_dict:
-        if clases_dict[class_name] == 'true':
+        if clases_dict[class_name] == True:
             clases.append(class_name)
     return clases
+
+if __name__ == '__main__':
+    uvicorn.run('main:app', host='0.0.0.0', port=1000, reload=True)

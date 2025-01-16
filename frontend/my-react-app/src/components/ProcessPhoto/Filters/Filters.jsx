@@ -42,11 +42,9 @@ export default function Filters({ setParams }) {
         formData.append('maxObjects', maxObjects)
         formData.append('animals', JSON.stringify(animals))
 
-        
-
         async function fetchData() {
             try {
-                const response = await fetch('http://178.20.208.159:8000/upload', {
+                const response = await fetch('http://0.0.0.0:1000/upload', {
                     method: 'POST',
                     body: formData
                 });
