@@ -13,6 +13,8 @@ export default function Result(params) {
         setPhotoInformation(item.img)
     }
 
+    console.log(params)
+
     return(
     <>
         <div className="table">
@@ -53,7 +55,7 @@ export default function Result(params) {
         <div onClick={() => setShowResult('none')} className={"result-container" + " " + showResult}>
             <div className="results">
                 <div className="photo-result-container">
-                    <img src={'http://localhost:8000/get_image/' + photoInformation} alt=""/>
+                    <img src={'http://178.20.208.159:8000/get_image/' + photoInformation} alt=""/>
                 </div>
             </div>
         </div>

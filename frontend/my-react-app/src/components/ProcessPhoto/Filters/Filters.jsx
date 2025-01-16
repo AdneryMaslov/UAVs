@@ -46,7 +46,7 @@ export default function Filters({ setParams }) {
 
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:8000/upload', {
+                const response = await fetch('http://178.20.208.159:8000/upload', {
                     method: 'POST',
                     body: formData
                 });
