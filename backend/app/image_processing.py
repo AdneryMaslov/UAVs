@@ -4,7 +4,7 @@ import uuid
 from ultralytics import YOLO
 
 def process_image(image_path: Path, min_confidence, min_size, clases, max_objects) -> dict:
-    model = YOLO("backend/app/best.pt")
+    model = YOLO("best.pt")
     results = model(image_path)
 
     if not results[0].boxes:
